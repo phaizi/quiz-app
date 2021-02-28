@@ -1,0 +1,13 @@
+@import '~antd/dist/antd.css';
+
+
+.Colborder { 
+    border-style: 'solid'; border-color: 'orange'; border-width: 1 
+  } 
+
+.Titlemargin { 
+    line-height: 'inherit'; margin-bottom: '0px' 
+  }
+.App {
+    text-align: center;
+  }
