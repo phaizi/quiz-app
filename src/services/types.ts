@@ -4,6 +4,13 @@ export enum Stage{
   end, 
 }
 
+export type Options = {
+  amount:number,
+  category:number,
+  difficulty:string,
+  time:number,
+}
+
 export type Data = {
   category:string,
   type:string,
@@ -15,8 +22,4 @@ export type Data = {
 
 export type Question = Data & {
   answers:string[] 
-}
-
-export type QuizOptions = {
-  amount:number,category:string,difficulty:string
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Options, Stage} from '../services/types'
 import { Layout, InputNumber, Button } from 'antd';
 import Title from 'antd/lib/typography/Title';
 import { Select } from 'antd';
@@ -12,10 +13,11 @@ const { Option } = Select;
 //   ['easy', 'medium', 'hard'],
 //   ['1', '2', '3']
 // ]
-const categories = ['Any Category', 'General Knowledge', 'Entertainment: Books', 'Entertainment: Film', 'Entertainment: Music', 'Entertainment: Musicals and Theatres', 'Entertainment: Television', 'Entertainment: Video Games', 'Entertainment: Board Games', 'Science and Nature', 'Science: Computers', 'Science: Mathematics', 'Mythology', 'Sports', 'Geography', 'History', 'Politics', 'Art', 'Celebrities', 'Animals', 'Vehicles', 'Entertainment: Comics', 'Science: Gadgets', 'Entertainment: Japanese Anime & Manga', 'Entertainment: Cartoons & Animations']
-const difficulty = ['easy', 'medium', 'hard']
-export default function Home() {
+const categories = ['Any Category', 'General Knowledge', 'Books', 'Film', 'Music', 'Musicals and Theatres', 'Television', 'Video Games', 'Board Games', 'Science and Nature', 'Science: Computers', 'Science: Mathematics', 'Mythology', 'Sports', 'Geography', 'History', 'Politics', 'Art', 'Celebrities', 'Animals', 'Vehicles', 'Comics', 'Science: Gadgets', 'Japanese Anime & Manga', 'Cartoons & Animations']
+const difficulty = ['any', 'easy', 'medium', 'hard']
+export default function Home(props:{options:Options, setOptions:(value: React.SetStateAction<Options>)=>void, setStage:(value: React.SetStateAction<Stage>)=>void}) {
   const { Header, Content, Footer, } = Layout;
+ 
   return (
     <Layout style={{ height: '100vh' }}>
       <Header className="header">
@@ -33,9 +35,9 @@ export default function Home() {
                 <Title style={{ lineHeight: 'inherit', marginBottom: '0px', }} level={3}>Categories</Title>
               </Col>
 
-              <Select style={{ padding: '0px', margin: '0px 0px' }} defaultValue={categories[0]} dropdownMatchSelectWidth={false} bordered={false} size='large'>
-                {categories.map((option: string) => (
-                  <Option value={option}>{option}</Option>
+              <Select style={{ padding: '0px', margin: '0px 0px' }} onChange={function(value, option){props.setOptions({...props.options, category:value})}} value={props.options.category} dropdownMatchSelectWidth={false} bordered={false} size='large'>
+                {categories.map((option: string,index) => (
+                  <Option value={index + 8}>{option}</Option>
                 ))}
               </Select>
             </Row>
@@ -44,7 +46,7 @@ export default function Home() {
               <Col xs={{ span: 20 }} sm={{ span: 15 }} style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1 }} >
                 <Title style={{ lineHeight: 'inherit', marginBottom: '0px' }} level={3}>Difficulty</Title>
               </Col>
-              <Select defaultValue={difficulty[0]} dropdownMatchSelectWidth={false} bordered={false} size='large'>
+              <Select onChange={(value,option)=>{props.setOptions({...props.options, difficulty:value})}} value={props.options.difficulty} dropdownMatchSelectWidth={false} bordered={false} size='large'>
                 {difficulty.map((option: string) => (
                   <Option value={option}>{option}</Option>
                 ))}
@@ -55,7 +57,7 @@ export default function Home() {
               <Col xs={{ span: 20 }} sm={{ span: 15 }} style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1 }} >
                 <Title style={{ lineHeight: 'inherit', marginBottom: '0px' }} level={3}>No. of Questions</Title>
               </Col>
-              <InputNumber min={1} max={49} defaultValue={10} />
+              <InputNumber min={1} max={49} onChange={(value)=>{if(typeof value === 'number'){props.setOptions({...props.options, amount:value})}}} value={props.options.amount}/>
             </Row>
             <Row justify="space-between" style={{ margin: '10px 0px ' }}
             >
@@ -63,12 +65,12 @@ export default function Home() {
                 <Title style={{ lineHeight: 'inherit', marginBottom: '0px' }} level={3}>Time limit</Title>
               </Col>
 
-              <InputNumber formatter={value => `${value}sec`} parser={value => value?.replace('sec', '') + ''} min={1} max={600} defaultValue={15} />
+              <InputNumber onChange={(value)=>{if(typeof value === 'number'){props.setOptions({...props.options, time:value})}}} formatter={value => `${value}sec`} parser={value => value?.replace('sec', '') + ''} min={1} max={600} value={props.options.time} />
             </Row>
             <Row justify="space-between" style={{ margin: '10px 0px ' }}
             >
               <Col span={24}>
-                <Button type='primary' block>Let's Play!!!</Button>
+                <Button onClick={(e)=>{props.setStage(Stage.during);console.log(props.options)}} type='primary' block>Let's Play!!!</Button>
               </Col>
 
             </Row>
@@ -77,7 +79,7 @@ export default function Home() {
         </Row>
 
       </Content>
-      <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+      <Footer style={{ textAlign: 'center' }}>Quiz App ©2021 Created by Faizan Mansur</Footer>
     </Layout>
   );
 }
