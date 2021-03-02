@@ -52,14 +52,14 @@ const CustomSider = (props: { score:number, question_no:number, totalQuestions:n
         mode="horizontal"
       >
 
-        <Menu.Item style={{ height: 100, margin: '0px 5px 5px 5px', }} key="1" >
-          <Avatar style={{ width: 200, height: 100, }} icon={<img style={{ width: 200, height: 100, }} src='/X2.png' alt='x2'/>} />
+        <Menu.Item style={{ height: isBreakpoint?70:100, margin: '0px 5px 5px 5px', }} key="1" >
+          <Avatar style={{ width: 200, height: isBreakpoint?70:100, }} icon={<img style={{ width: 200, height: isBreakpoint?70:100, }} src='/X2.png' alt='x2'/>} />
         </Menu.Item>
-        <Menu.Item style={{ height: 100, margin: '5px 5px', }} key="2" >
-          <Avatar style={{ width: 200, height: 100 }} icon={<img style={{ width: 200, height: 100, }} src='/50-50.png' alt='50-50'/>} />
+        <Menu.Item style={{ height: isBreakpoint?70:100, margin: '5px 5px', }} key="2" >
+          <Avatar style={{ width: 200, height: isBreakpoint?70:100 }} icon={<img style={{ width: 200, height: isBreakpoint?70:100 }} src='/50-50.png' alt='50-50'/>} />
         </Menu.Item>
-        <Menu.Item style={{ height: 100, margin: '5px 5px', }} key="3" >
-          <Avatar style={{ width: 200, height: 100, }} icon={<img style={{ width: 200, height: 100, }} src='/Flip.png' alt='flip'/>} />
+        <Menu.Item style={{ height: isBreakpoint?70:100, margin: '5px 5px', }} key="3" >
+          <Avatar style={{ width: 200, height: isBreakpoint?70:100, }} icon={<img style={{ width: 200, height: isBreakpoint?70:100, }} src='/Flip.png' alt='flip'/>} />
         </Menu.Item>
 
       </Menu>
