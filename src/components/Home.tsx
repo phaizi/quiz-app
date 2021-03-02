@@ -1,9 +1,10 @@
 import React from 'react';
-import {Options, Stage} from '../services/types'
-import { Layout, InputNumber, Button } from 'antd';
+import { Options, Stage } from '../services/types'
+import { InputNumber, Button, } from 'antd';
 import Title from 'antd/lib/typography/Title';
 import { Select } from 'antd';
 import { Row, Col } from 'antd';
+
 
 
 const { Option } = Select;
@@ -15,72 +16,69 @@ const { Option } = Select;
 // ]
 const categories = ['Any Category', 'General Knowledge', 'Books', 'Film', 'Music', 'Musicals and Theatres', 'Television', 'Video Games', 'Board Games', 'Science and Nature', 'Science: Computers', 'Science: Mathematics', 'Mythology', 'Sports', 'Geography', 'History', 'Politics', 'Art', 'Celebrities', 'Animals', 'Vehicles', 'Comics', 'Science: Gadgets', 'Japanese Anime & Manga', 'Cartoons & Animations']
 const difficulty = ['any', 'easy', 'medium', 'hard']
-export default function Home(props:{options:Options, setOptions:(value: React.SetStateAction<Options>)=>void, setStage:(value: React.SetStateAction<Stage>)=>void}) {
-  const { Header, Content, Footer, } = Layout;
- 
+export default function Home(props: { trg: React.SetStateAction<boolean>, setTrg: (value: React.SetStateAction<boolean>) => void, options: Options, setOptions: (value: React.SetStateAction<Options>) => void, setStage: (value: React.SetStateAction<Stage>) => void }) {
+
+
+
+
   return (
-    <Layout style={{ height: '100vh' }}>
-      <Header className="header">
-        <Title type="warning" style={{ lineHeight: 'inherit' }}>The Quiz App</Title>
-      </Header>
-      <Content style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', }}>
-        <Row justify='center' style={{ margin: 'auto', width: '95%', maxWidth: '700px', padding: 20, borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }}
-        >
-          <Col span={18} >
 
-            <Row justify="space-between" style={{ margin: '10px 0px ' }}
+    <Col span={18} >
 
-            >
-              <Col xs={{ span: 20 }} sm={{ span: 15 }} style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }} >
-                <Title style={{ lineHeight: 'inherit', marginBottom: '0px', }} level={3}>Categories</Title>
-              </Col>
+      <Row justify="space-between" style={{ margin: '10px 0px ' }}
 
-              <Select style={{ padding: '0px', margin: '0px 0px' }} onChange={function(value, option){props.setOptions({...props.options, category:value})}} value={props.options.category} dropdownMatchSelectWidth={false} bordered={false} size='large'>
-                {categories.map((option: string,index) => (
-                  <Option value={index + 8}>{option}</Option>
-                ))}
-              </Select>
-            </Row>
-            <Row justify="space-between" style={{ margin: '10px 0px ' }}
-            >
-              <Col xs={{ span: 20 }} sm={{ span: 15 }} style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1 }} >
-                <Title style={{ lineHeight: 'inherit', marginBottom: '0px' }} level={3}>Difficulty</Title>
-              </Col>
-              <Select onChange={(value,option)=>{props.setOptions({...props.options, difficulty:value})}} value={props.options.difficulty} dropdownMatchSelectWidth={false} bordered={false} size='large'>
-                {difficulty.map((option: string) => (
-                  <Option value={option}>{option}</Option>
-                ))}
-              </Select>
-            </Row>
-            <Row justify="space-between" style={{ margin: '10px 0px ' }}
-            >
-              <Col xs={{ span: 20 }} sm={{ span: 15 }} style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1 }} >
-                <Title style={{ lineHeight: 'inherit', marginBottom: '0px' }} level={3}>No. of Questions</Title>
-              </Col>
-              <InputNumber min={1} max={49} onChange={(value)=>{if(typeof value === 'number'){props.setOptions({...props.options, amount:value})}}} value={props.options.amount}/>
-            </Row>
-            <Row justify="space-between" style={{ margin: '10px 0px ' }}
-            >
-              <Col xs={{ span: 20 }} sm={{ span: 15 }} style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1 }} >
-                <Title style={{ lineHeight: 'inherit', marginBottom: '0px' }} level={3}>Time limit</Title>
-              </Col>
+      >
+        <Col xs={{ span: 20 }} sm={{ span: 15 }} style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }} >
+          <Title style={{ lineHeight: 'inherit', marginBottom: '0px', }} level={3}>Categories</Title>
+        </Col>
 
-              <InputNumber onChange={(value)=>{if(typeof value === 'number'){props.setOptions({...props.options, time:value})}}} formatter={value => `${value}sec`} parser={value => value?.replace('sec', '') + ''} min={1} max={600} value={props.options.time} />
-            </Row>
-            <Row justify="space-between" style={{ margin: '10px 0px ' }}
-            >
-              <Col span={24}>
-                <Button onClick={(e)=>{props.setStage(Stage.during);console.log(props.options)}} type='primary' block>Let's Play!!!</Button>
-              </Col>
+        <Select style={{ padding: '0px', margin: '0px 0px' }} onChange={function (value, option) { props.setOptions({ ...props.options, category: value }) }} value={props.options.category} dropdownMatchSelectWidth={false} bordered={false} size='large'>
+          {categories.map((option: string, index) => (
+            <Option value={index + 8}>{option}</Option>
+          ))}
+        </Select>
+      </Row>
+      <Row justify="space-between" style={{ margin: '10px 0px ' }}
+      >
+        <Col xs={{ span: 20 }} sm={{ span: 15 }} style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1 }} >
+          <Title style={{ lineHeight: 'inherit', marginBottom: '0px' }} level={3}>Difficulty</Title>
+        </Col>
+        <Select onChange={(value, option) => { props.setOptions({ ...props.options, difficulty: value }) }} value={props.options.difficulty} dropdownMatchSelectWidth={false} bordered={false} size='large'>
+          {difficulty.map((option: string) => (
+            <Option value={option}>{option}</Option>
+          ))}
+        </Select>
+      </Row>
+      <Row justify="space-between" style={{ margin: '10px 0px ' }}
+      >
+        <Col xs={{ span: 20 }} sm={{ span: 15 }} style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1 }} >
+          <Title style={{ lineHeight: 'inherit', marginBottom: '0px' }} level={3}>No. of Questions</Title>
+        </Col>
+        <InputNumber min={1} max={49} onChange={(value) => { if (typeof value === 'number') { props.setOptions({ ...props.options, amount: value }) } }} value={props.options.amount} />
+      </Row>
+      <Row justify="space-between" style={{ margin: '10px 0px ' }}
+      >
+        <Col xs={{ span: 20 }} sm={{ span: 15 }} style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1 }} >
+          <Title style={{ lineHeight: 'inherit', marginBottom: '0px' }} level={3}>Time limit</Title>
+        </Col>
 
-            </Row>
-          </Col>
+        <InputNumber onChange={(value) => { if (typeof value === 'number') { props.setOptions({ ...props.options, time: value }) } }} formatter={value => `${value}sec`} parser={value => value?.replace('sec', '') + ''} min={1} max={600} value={props.options.time} />
+      </Row>
+      <Row justify="space-between" style={{ margin: '10px 0px ' }}
+      >
+        <Col span={24}>
+          <Button onClick={(e) => { props.setStage(Stage.during); console.log(props.options) }} type='primary' block>Let's Play!!!</Button>
+        </Col>
 
-        </Row>
+      </Row>
+      <Row justify="space-between" style={{ margin: '10px 0px ' }}
+      >
+        <button onClick={(e) => { props.setTrg(!props.trg) }}>toggle</button>
+      </Row>
 
-      </Content>
-      <Footer style={{ textAlign: 'center' }}>Quiz App ©2021 Created by Faizan Mansur</Footer>
-    </Layout>
+    </Col>
+
+
   );
 }
 
