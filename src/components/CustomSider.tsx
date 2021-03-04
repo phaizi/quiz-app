@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Button, Card, Layout, Menu } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import Meta from 'antd/lib/card/Meta';
+import { Stage } from '../services/types';
 
-const CustomSider = (props: { score:number, question_no:number, totalQuestions:number, collapsed: React.SetStateAction<boolean>, setCollapsed: (value: React.SetStateAction<boolean>) => void }) => {
+const CustomSider = (props: { score:number, question_no:number, totalQuestions:number, stage:Stage, collapsed: React.SetStateAction<boolean>, setCollapsed: (value: React.SetStateAction<boolean>) => void }) => {
 
   const { Sider } = Layout;
   const [isBreakpoint, setBreakpoint] = useState<boolean>(false)
@@ -19,14 +20,15 @@ const CustomSider = (props: { score:number, question_no:number, totalQuestions:n
         zIndex: 15,
       }}
       trigger={
-        isBreakpoint? 
+        isBreakpoint&&props.stage===Stage.during? 
         <Button type="primary" danger block={true} style={{zIndex:300,}} onClick={(e) => { props.setCollapsed(!props.collapsed) }}>{props.collapsed?'>':'<'}</Button>
         :null
       }
-      collapsed={Boolean(props.collapsed)}
+      
+      collapsed={!isBreakpoint&& props.stage===Stage.during?false: Boolean(props.collapsed)}
       collapsible={true}
       width={250}
-      defaultCollapsed={true}
+      // defaultCollapsed={true}
       breakpoint="sm"
       collapsedWidth="0"
       onBreakpoint={broken => {
