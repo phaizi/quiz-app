@@ -43,7 +43,7 @@ const CustomSider = (props: { score:number, question_no:number, totalQuestions:n
         <h1 style={{ fontSize: 30, fontWeight: 100, color: 'black' }}>Score: {props.score}</h1>
         <Meta
           style={{ fontSize: 20, }}
-          description={`${props.question_no} of ${props.totalQuestions}Q`}
+          description={`${props.question_no+1} of ${props.totalQuestions}Q`}
         />
       </Card>
 

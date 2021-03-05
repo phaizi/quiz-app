@@ -73,6 +73,13 @@ export default function Home(props: { setLoading:(value:React.SetStateAction<boo
       </Row>
       {/* <Row justify="space-between" style={{ margin: '10px 0px ' }}
       >
+        <Col span={12}>
+          <Button onClick={(e) => { props.setLoading(true); props.setStage(Stage.during); console.log(props.options) }}  type='primary' block>12345678912345678900123456789</Button>
+        </Col>
+
+      </Row> */}
+      {/* <Row justify="space-between" style={{ margin: '10px 0px ' }}
+      >
         <button onClick={(e) => { props.setTrg(!props.trg) }}>toggle</button>
       </Row> */}
 

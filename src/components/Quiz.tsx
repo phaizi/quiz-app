@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Question } from '../services/types';
+import { Question, Stage } from '../services/types';
+import { select, lockAnswer, nextQuestion, stopTime, decode } from '../services/functions';
 import { Button, Col, Grid, Progress, Row } from 'antd';
 import Title from 'antd/lib/typography/Title';
 
-const stopTime = (timeid: NodeJS.Timeout | undefined) => {
-  console.log('this is id = ', timeid);
-  if (typeof (timeid) !== 'undefined') { clearInterval(timeid) }
-}
-// stopTime is created bcoz typescript was not taking timeId as Timeout
 const { useBreakpoint } = Grid;
 
-const Quiz = (props: { data: Question[], qNumber: number, setNumber: (value: React.SetStateAction<number>) => void, time: number }) => {
+const Quiz = (props: { data: Question[], score: number, setScore: (value: React.SetStateAction<number>) => void, qNumber: number, setNumber: (value: React.SetStateAction<number>) => void, totalQuestions: number, setStage: (value: React.SetStateAction<Stage>) => void, time: number }) => {
 
   const [time, setTime] = useState(props.time)
   const [timeId, setId] = useState<NodeJS.Timeout>()
   const screens = useBreakpoint();
+  const [selectionRemaining, setRemaining] = useState<number>(1);
+  const [answerSelected, setSelected] = useState<number[]>([]);
+  const [isLocked, setLock] = useState<boolean>(false);
   console.log('this is breakpoint = ', screens)
-  
+  const correct_answer = props.data[props.qNumber].correct_answer;
+
   useEffect(() => {
     function timer(start: number,
       // timeId:NodeJS.Timeout[]|undefined
@@ -29,7 +29,7 @@ const Quiz = (props: { data: Question[], qNumber: number, setNumber: (value: Rea
       // if(d === 0 && timeId){
       //   stopTime(timeId[0])}
       if (d === 0) {
-        stopTime(Id)
+        stopTime(Id, setLock)
       }
     }
     const start = Date.now() / 1000
@@ -62,16 +62,17 @@ const Quiz = (props: { data: Question[], qNumber: number, setNumber: (value: Rea
       <Col span={24} >
         <Row justify="space-between" style={{ height: '40%', margin: '0px 0px ' }}>
           <Col span={24} style={{ padding: 10, borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }}>
-            <Title level={4}>{props.data[props.qNumber].question}</Title>
+            <Title level={4}>{decode(props.data[props.qNumber].question)}</Title>
           </Col>
         </Row>
         <Row justify="space-between" style={{ height: '40%', margin: '10px 0px ' }}>
           <Col span={screens.xs ? 23 : 8}>
             {
-              props.data[props.qNumber].answers.slice(0, 2).map((answer, index) => (
+              props.data[props.qNumber].answers.slice(0, 2).map((answer, id) => (
                 <Col span={24}
                 >
-                  <Title style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }} level={answer.length > 20 ? 5 : 4}>{answer}</Title>
+                  {/* <Title style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }} level={answer.length > 20 ? 5 : 4}>{answer}</Title> */}
+                  <Button  {...isLocked && { style: { backgroundColor: correct_answer === answer ? 'green' : answerSelected.includes(id) ? 'red' : '' } }} onClick={() => select(answerSelected, setSelected, selectionRemaining, setRemaining, id, isLocked)} type={answerSelected.includes(id) ? 'primary' : 'default'} block>{decode(answer)}</Button>
                 </Col>
               ))}
           </Col>
@@ -96,17 +97,22 @@ const Quiz = (props: { data: Question[], qNumber: number, setNumber: (value: Rea
           }
           <Col span={screens.xs ? 23 : 8}>
             {
-              props.data[props.qNumber].answers.slice(2, 4).map((answer, index) => (
+              props.data[props.qNumber].answers.slice(2, 4).map((answer, id) => (
                 <Col span={24}
                 >
-                  <Title style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }} level={answer.length > 20 ? 5 : 4}>{answer}</Title>
+                  {/* <Title style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }} level={answer.length > 20 ? 5 : 4}>{answer}</Title> */}
+                  <Button  {...isLocked && { style: { backgroundColor: correct_answer === answer ? 'green' : answerSelected.includes(id + 2) ? 'red' : '' } }} onClick={() => select(answerSelected, setSelected, selectionRemaining, setRemaining, id + 2, isLocked)} type={answerSelected.includes(id + 2,) ? 'primary' : 'default'} block>{decode(answer)}</Button>
                 </Col>
               ))
             }
           </Col>
         </Row>
         <Row justify="center" style={{ margin: '10px 0px ', minHeight: 80 }} >
-          <Col span={18}><Button onClick={() => { stopTime(timeId) }} type='primary' block>Lock Answer</Button>
+          <Col span={18}>
+            {isLocked ?
+              <Button onClick={() => { nextQuestion(setLock, props.qNumber, props.setNumber, props.totalQuestions, setSelected, setRemaining, props.setStage, props.time, setTime,) }} type='primary' block>{props.qNumber + 1 === props.totalQuestions ? 'Finish' : 'Next Question'}</Button>
+              :
+              <Button onClick={() => { lockAnswer(props.score, props.setScore, setLock, correct_answer, props.data[props.qNumber].answers, answerSelected, timeId, stopTime) }} disabled={Boolean(selectionRemaining)} type='primary' block>Lock Answer</Button>}
           </Col>
         </Row>
 

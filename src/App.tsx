@@ -15,10 +15,12 @@ const App = () => {
   const [stage, setStage] = useState(Stage.start)
   const [quizOptions, setOptions] = useState<Options>({ amount: 10, time: 15, category: 8, difficulty: 'any' })
   const [quizData, setData] = useState<Question[]>([])
-  const [qNumber,setNumber] = useState(1)
+  const [qNumber,setNumber] = useState(0)
+  const [score, setScore] = useState(0)
   const [sider, setSider] = useState<boolean>(true)
   const { Header, Content, Footer } = Layout;
   const [isLoading,setLoading]=useState<boolean>(false)
+
 
   useEffect(() => {
     if (stage === Stage.during) {
@@ -40,15 +42,19 @@ const App = () => {
           <Title type="warning" style={{ lineHeight: 'inherit' }}>The Quiz App</Title>
         </Header>
         <Layout>
-          <CustomSider stage={stage} score={0} question_no={qNumber} totalQuestions={quizOptions.amount} setCollapsed={setSider} collapsed={sider}
+          <CustomSider stage={stage} score={score} question_no={qNumber} totalQuestions={quizOptions.amount} setCollapsed={setSider} collapsed={sider}
           />
           <Content style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', }} >
 
             <Row justify='center' style={{ margin: 'auto', minHeight:'330px', width: '95%', maxWidth: '700px', padding: 20, borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }}
             >
 
-              {isLoading? <Spin style={{fontSize:25,}}tip='Loading...' size="large" /> : stage === Stage.start ? <Home setLoading={setLoading}trg={sider} setTrg={setSider} options={quizOptions} setOptions={setOptions} setStage={setStage} /> :
-                stage === Stage.during ? <Quiz data={quizData} qNumber={qNumber} setNumber={setNumber} time={quizOptions.time}/> : <Score />}
+              {isLoading? 
+              <Spin style={{fontSize:25,}}tip='Loading...' size="large" /> 
+              : stage === Stage.start ? 
+              <Home setLoading={setLoading}trg={sider} setTrg={setSider} options={quizOptions} setOptions={setOptions} setStage={setStage} /> 
+              : stage === Stage.during ? 
+              <Quiz score={score} setScore={setScore} data={quizData} totalQuestions={quizOptions.amount} qNumber={qNumber} setNumber={setNumber} setStage={setStage} time={quizOptions.time}/> : <Score />}
             </Row>
 
 
