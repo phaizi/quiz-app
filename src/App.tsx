@@ -15,12 +15,15 @@ const App = () => {
   const [stage, setStage] = useState(Stage.start)
   const [quizOptions, setOptions] = useState<Options>({ amount: 10, time: 15, category: 8, difficulty: 'any' })
   const [quizData, setData] = useState<Question[]>([])
-  const [qNumber,setNumber] = useState(0)
+  const [qNumber, setNumber] = useState(0) //question  number v r on currently
   const [score, setScore] = useState(0)
   const [sider, setSider] = useState<boolean>(true)
   const { Header, Content, Footer } = Layout;
-  const [isLoading,setLoading]=useState<boolean>(false)
-
+  const [isLoading, setLoading] = useState<boolean>(false)
+  const [selectionRemaining, setRemaining] = useState<number>(1);
+  const [isLifeline, setLifeline] = useState<boolean[]>([true, true, true])// whether lifelines r availabe
+  const [is5050, set5050] = useState<boolean[]>([false, false, false, false]) //for making answer buttons disable
+  // const [is2Selection, set2Selection] = useState<boolean>(false);
 
   useEffect(() => {
     if (stage === Stage.during) {
@@ -42,19 +45,19 @@ const App = () => {
           <Title type="warning" style={{ lineHeight: 'inherit' }}>The Quiz App</Title>
         </Header>
         <Layout>
-          <CustomSider stage={stage} score={score} question_no={qNumber} totalQuestions={quizOptions.amount} setCollapsed={setSider} collapsed={sider}
+          <CustomSider isLifeline={isLifeline} setLifeline={setLifeline} set5050={set5050} is5050={is5050} setRemaining={setRemaining} answer={quizData[qNumber]?.correct_answer} options={quizData[qNumber]?.answers} stage={stage} score={score} question_no={qNumber} totalQuestions={quizOptions.amount} setCollapsed={setSider} collapsed={sider}
           />
           <Content style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', }} >
 
-            <Row justify='center' style={{ margin: 'auto', minHeight:'330px', width: '95%', maxWidth: '700px', padding: 20, borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }}
+            <Row justify='center' style={{ margin: 'auto', minHeight: '330px', width: '95%', maxWidth: '700px', padding: 20, borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }}
             >
 
-              {isLoading? 
-              <Spin style={{fontSize:25,}}tip='Loading...' size="large" /> 
-              : stage === Stage.start ? 
-              <Home setLoading={setLoading}trg={sider} setTrg={setSider} options={quizOptions} setOptions={setOptions} setStage={setStage} /> 
-              : stage === Stage.during ? 
-              <Quiz score={score} setScore={setScore} data={quizData} totalQuestions={quizOptions.amount} qNumber={qNumber} setNumber={setNumber} setStage={setStage} time={quizOptions.time}/> : <Score />}
+              {isLoading ?
+                <Spin style={{ fontSize: 25, }} tip='Loading...' size="large" />
+                : stage === Stage.start ?
+                  <Home setLoading={setLoading} trg={sider} setTrg={setSider} options={quizOptions} setOptions={setOptions} setStage={setStage} />
+                  : stage === Stage.during ?
+                    <Quiz score={score} setScore={setScore} data={quizData} totalQuestions={quizOptions.amount} qNumber={qNumber} setNumber={setNumber} setStage={setStage} time={quizOptions.time} selectionRemaining={selectionRemaining} setRemaining={setRemaining} is5050={is5050} set5050={set5050} /> : <Score />}
             </Row>
 
 

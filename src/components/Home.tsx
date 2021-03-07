@@ -16,7 +16,7 @@ const { Option } = Select;
 // ]
 const categories = ['Any Category', 'General Knowledge', 'Books', 'Film', 'Music', 'Musicals and Theatres', 'Television', 'Video Games', 'Board Games', 'Science and Nature', 'Science: Computers', 'Science: Mathematics', 'Mythology', 'Sports', 'Geography', 'History', 'Politics', 'Art', 'Celebrities', 'Animals', 'Vehicles', 'Comics', 'Science: Gadgets', 'Japanese Anime & Manga', 'Cartoons & Animations']
 const difficulty = ['any', 'easy', 'medium', 'hard']
-export default function Home(props: { setLoading:(value:React.SetStateAction<boolean>)=>void, trg: React.SetStateAction<boolean>, setTrg: (value: React.SetStateAction<boolean>) => void, options: Options, setOptions: (value: React.SetStateAction<Options>) => void, setStage: (value: React.SetStateAction<Stage>) => void }) {
+export default function Home(props: { setLoading: (value: React.SetStateAction<boolean>) => void, trg: React.SetStateAction<boolean>, setTrg: (value: React.SetStateAction<boolean>) => void, options: Options, setOptions: (value: React.SetStateAction<Options>) => void, setStage: (value: React.SetStateAction<Stage>) => void }) {
 
 
 
