@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Button, Card, Layout, Menu, Modal } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import Meta from 'antd/lib/card/Meta';
-import { Stage } from '../services/types';
-import { acceptLifeline, fifty50, select2 } from '../services/functions';
+import { Question, Stage } from '../services/types';
+import { acceptLifeline, fifty50, flip, select2 } from '../services/functions';
 
 
 
-const CustomSider = (props: { isLifeline: boolean[], setLifeline: (value: React.SetStateAction<boolean[]>) => void, is5050: boolean[], set5050: (value: React.SetStateAction<boolean[]>) => void, setRemaining: (value: React.SetStateAction<number>) => void, answer: string, options: string[], score: number, question_no: number, totalQuestions: number, stage: Stage, collapsed: React.SetStateAction<boolean>, setCollapsed: (value: React.SetStateAction<boolean>) => void }) => {
+const CustomSider = (props: { data: Question[], isLifeline: boolean[], setLifeline: (value: React.SetStateAction<boolean[]>) => void, is5050: boolean[], set5050: (value: React.SetStateAction<boolean[]>) => void, setRemaining: (value: React.SetStateAction<number>) => void, answer: string, options: string[], score: number, question_no: number, totalQuestions: number, stage: Stage, collapsed: React.SetStateAction<boolean>, setCollapsed: (value: React.SetStateAction<boolean>) => void }) => {
 
   const { Sider } = Layout;
   const [isBreakpoint, setBreakpoint] = useState<boolean>(false)
@@ -95,6 +95,7 @@ const CustomSider = (props: { isLifeline: boolean[], setLifeline: (value: React.
             okText: 'Yes',
             onOk: () => {
               acceptLifeline(2, props.isLifeline, props.setLifeline);
+              flip(props.data, props.question_no);
             },
             cancelText: 'No',
           });

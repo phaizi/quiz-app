@@ -21,5 +21,5 @@ export type Data = {
 }
 
 export type Question = Data & {
-  answers:string[] 
+  answers:string[], 
 }

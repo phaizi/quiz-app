@@ -45,7 +45,7 @@ const App = () => {
           <Title type="warning" style={{ lineHeight: 'inherit' }}>The Quiz App</Title>
         </Header>
         <Layout>
-          <CustomSider isLifeline={isLifeline} setLifeline={setLifeline} set5050={set5050} is5050={is5050} setRemaining={setRemaining} answer={quizData[qNumber]?.correct_answer} options={quizData[qNumber]?.answers} stage={stage} score={score} question_no={qNumber} totalQuestions={quizOptions.amount} setCollapsed={setSider} collapsed={sider}
+          <CustomSider data={quizData} isLifeline={isLifeline} setLifeline={setLifeline} set5050={set5050} is5050={is5050} setRemaining={setRemaining} answer={quizData[qNumber]?.correct_answer} options={quizData[qNumber]?.answers} stage={stage} score={score} question_no={qNumber} totalQuestions={quizOptions.amount} setCollapsed={setSider} collapsed={sider}
           />
           <Content style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', }} >
 
