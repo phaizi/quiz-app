@@ -30,7 +30,6 @@ const App = () => {
       apiCall(quizOptions).then((data) => {
         setData(data);
         setLoading(false);
-        console.log('chala', quizData)
       })
     }
 

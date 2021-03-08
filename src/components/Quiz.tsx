@@ -61,7 +61,7 @@ const Quiz = (props: { data: Question[], setScore: (value: React.SetStateAction<
             <Col span={screens.xs ? 23 : 8}>
               {
                 props.data[props.qNumber].answers.slice(0, 2).map((answer, id) => (
-                  <Col span={24} style={{ marginBottom: 10 }}>
+                  <Col key={id} span={24} style={{ marginBottom: 10 }}>
                     <Button disabled={props.is5050[id]} {...isLocked && { style: { backgroundColor: correct_answer === answer ? 'green' : answerSelected.includes(id) ? 'red' : '' } }} onClick={() => select(answerSelected, setSelected, props.selectionRemaining, props.setRemaining, id, isLocked)} type={answerSelected.includes(id) ? 'primary' : 'default'} block>{decode(answer)}</Button>
                   </Col>
                 ))}
@@ -86,9 +86,8 @@ const Quiz = (props: { data: Question[], setScore: (value: React.SetStateAction<
             <Col span={screens.xs ? 23 : 8}>
               {
                 props.data[props.qNumber].answers.slice(2, 4).map((answer, id) => (
-                  <Col span={24} style={{ marginBottom: 10 }}
+                  <Col key={id+2} span={24} style={{ marginBottom: 10 }}
                   >
-                    {/* <Title style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }} level={answer.length > 20 ? 5 : 4}>{answer}</Title> */}
                     <Button disabled={props.is5050[id + 2]}  {...isLocked && { style: { backgroundColor: correct_answer === answer ? 'green' : answerSelected.includes(id + 2) ? 'red' : '' } }} onClick={() => select(answerSelected, setSelected, props.selectionRemaining, props.setRemaining, id + 2, isLocked)} type={answerSelected.includes(id + 2,) ? 'primary' : 'default'} block>{decode(answer)}</Button>
                   </Col>
                 ))

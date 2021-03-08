@@ -19,7 +19,7 @@ export default function Home(props: { setLoading: (value: React.SetStateAction<b
         </Col>
         <Select style={{ padding: '0px', margin: '0px 0px' }} onChange={function (value, option) { props.setOptions({ ...props.options, category: value }) }} value={props.options.category} dropdownMatchSelectWidth={false} bordered={false} size='large'>
           {categories.map((option: string, index) => (
-            <Option value={index + 8}>{option}</Option>
+            <Option value={index + 8} key={option}>{option}</Option>
           ))}
         </Select>
       </Row>
@@ -29,7 +29,7 @@ export default function Home(props: { setLoading: (value: React.SetStateAction<b
         </Col>
         <Select onChange={(value, option) => { props.setOptions({ ...props.options, difficulty: value }) }} value={props.options.difficulty} dropdownMatchSelectWidth={false} bordered={false} size='large'>
           {difficulty.map((option: string) => (
-            <Option value={option}>{option}</Option>
+            <Option value={option} key={option}>{option}</Option>
           ))}
         </Select>
       </Row>
