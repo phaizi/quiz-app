@@ -28,7 +28,6 @@ const App = () => {
   useEffect(() => {
     if (stage === Stage.during) {
       apiCall(quizOptions).then((data) => {
-        // console.log('this is resolve = ',data)
         setData(data);
         setLoading(false);
         console.log('chala', quizData)
@@ -66,7 +65,7 @@ const App = () => {
               : stage === Stage.start ?
                 <Home setLoading={setLoading} trg={sider} setTrg={setSider} options={quizOptions} setOptions={setOptions} setStage={setStage} />
                 : stage === Stage.during ?
-                  <Quiz score={score} setScore={setScore} data={quizData} totalQuestions={quizOptions.amount} qNumber={qNumber} setNumber={setNumber} setStage={setStage} time={quizOptions.time} selectionRemaining={selectionRemaining} setRemaining={setRemaining} is5050={is5050} set5050={set5050} />
+                  <Quiz setScore={setScore} data={quizData} totalQuestions={quizOptions.amount} qNumber={qNumber} setNumber={setNumber} setStage={setStage} time={quizOptions.time} selectionRemaining={selectionRemaining} setRemaining={setRemaining} is5050={is5050} set5050={set5050} />
                   : <Score score={score} setScore={setScore} totalQuestions={quizOptions.amount} qNumber={qNumber} setNumber={setNumber} setLifeline={setLifeline} setStage={setStage} />}
           </Content>
         </Layout>

@@ -5,11 +5,9 @@ export const shuffleArray = (array: any[]) =>
     array.sort(() => Math.random() - 0.5)
 
 export async function apiCall(options: Options): Promise<Question[]> {
-    console.log(`https://opentdb.com/api.php?amount=${options.amount}&category=${options.category < 9 ? 0 : options.category}&difficulty=${options.difficulty === 'any' ? 0 : options.difficulty}&type=multiple`)
     const response = await fetch(`https://opentdb.com/api.php?amount=${options.amount + 1}&category=${options.category < 9 ? 0 : options.category}&difficulty=${options.difficulty === 'any' ? 0 : options.difficulty}&type=multiple`)
     // <9 comparison is made bcoz in select component, category 8 corresponds to all categories while in api for that it has to be 0 and similar is the case for difficulty
     const { results } = await response.json()
-    console.log('this is results', results)
 
     return (
         results.map((question: Data) => (
@@ -22,7 +20,7 @@ export async function apiCall(options: Options): Promise<Question[]> {
 }
 
 export const lockAnswer = (
-    score: number, setScore: (value: React.SetStateAction<number>) => void,
+    setScore: (value: React.SetStateAction<number>) => void,
     setLock: (value: React.SetStateAction<boolean>) => void,
     answer: string, options: string[], selected: number[],
     timeId: NodeJS.Timeout | undefined, stopTimer: (timeId: NodeJS.Timeout | undefined, setLock: (value: React.SetStateAction<boolean>) => void,) => void,
@@ -31,7 +29,6 @@ export const lockAnswer = (
         setScore((score) => score + 1);
     }
     stopTimer(timeId, setLock);
-    // setLock(true);
 }
 
 export const nextQuestion = (
@@ -44,12 +41,9 @@ export const nextQuestion = (
     timeLimit: number,
     setTime: (value: React.SetStateAction<number>) => void,
     set5050: (value: React.SetStateAction<boolean[]>) => void,
-    // set2Selection: (value:React.SetStateAction<boolean>)=>void,    
 ) => {
     if (qNumber + 1 === totalQuestions) {
-        // setNumber(0);
         setStage(Stage.end);
-        //lifelines reset missing
     } else {
         setNumber((qNumber) => qNumber + 1);
     }
@@ -58,7 +52,6 @@ export const nextQuestion = (
     setLock(false);
     setTime(timeLimit);
     set5050([false, false, false, false]);
-    // set2Selection(false);
 } // this function has functionality of nextquestion as well as finish button
 
 export const playAgain = (
@@ -70,21 +63,9 @@ export const playAgain = (
 ) => {
     setNumber(0);
     setScore(0);
-    setLifeline([true,true,true]);
+    setLifeline([true, true, true]);
     setStage(stage);
 }
-
-// export const settings = (
-//     setNumber: (value: React.SetStateAction<number>) => void,
-//     setScore: (value: React.SetStateAction<number>) => void,
-//     setLifeline: (value: React.SetStateAction<boolean[]>) => void,
-//     setStage: (value: React.SetStateAction<Stage>) => void,
-// ) => {
-//     setNumber(0);
-//     setScore(0);
-//     setLifeline([true,true,true]);
-//     setStage(Stage.start);
-// }
 
 export const select = (
     selected: number[], setSelected: (value: React.SetStateAction<number[]>) => void,
@@ -109,17 +90,10 @@ export const select = (
                 setSelected(newSelected);
             }
         }
-        console.log('selected = ', newSelected)
     }
 }
 
-
-
 export const doesMatch = (answer: string, options: string[], selected: number[]) => {
-    // for (let answer of answers) {
-    //     if (answer in options) return true
-    // }
-    // return false
     for (let index of selected) {
         if (answer === options[index]) {
             return true;
@@ -158,7 +132,6 @@ export const flip = (data: Question[], qNumber: number) => {
 }
 
 export const stopTime = (timeid: NodeJS.Timeout | undefined, setLock: (value: React.SetStateAction<boolean>) => void,) => {
-    console.log('this is id = ', timeid);
     if (typeof (timeid) !== 'undefined') {
         clearInterval(timeid);
         setLock(true);
