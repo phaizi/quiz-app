@@ -39,7 +39,8 @@ const Quiz = (props: { data: Question[], score: number, setScore: (value: React.
   }, [props.qNumber, props.time,])
   return (
     <>
-
+ <Row justify='center' style={{ margin: 'auto', minHeight: '330px', width: '95%', maxWidth: '700px', padding: 20, borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }}
+            >
       {!screens.xs ||
         <Col span={24} style={{ marginBottom: 10 }}>
 
@@ -49,7 +50,7 @@ const Quiz = (props: { data: Question[], score: number, setScore: (value: React.
               '0%': 'orange',
               '100%': 'red',
             }}
-            format={(percent) => Math.round(props.time * (100 - (percent || 0)) / 100) || 'timeout'}
+            format={(percent) => ((time) || 'timeout')}
             percent={100 - Math.round(time * 100 / props.time)}
             showInfo={true}
             strokeWidth={8}
@@ -69,7 +70,7 @@ const Quiz = (props: { data: Question[], score: number, setScore: (value: React.
           <Col span={screens.xs ? 23 : 8}>
             {
               props.data[props.qNumber].answers.slice(0, 2).map((answer, id) => (
-                <Col span={24}
+                <Col span={24} style={{ marginBottom: 10 }}
                 >
                   {/* <Title style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }} level={answer.length > 20 ? 5 : 4}>{answer}</Title> */}
                   <Button disabled={props.is5050[id]} {...isLocked && { style: { backgroundColor: correct_answer === answer ? 'green' : answerSelected.includes(id) ? 'red' : '' } }} onClick={() => select(answerSelected, setSelected, props.selectionRemaining, props.setRemaining, id, isLocked)} type={answerSelected.includes(id) ? 'primary' : 'default'} block>{decode(answer)}</Button>
@@ -85,7 +86,7 @@ const Quiz = (props: { data: Question[], score: number, setScore: (value: React.
                   '0%': 'orange',
                   '100%': 'red',
                 }}
-                format={(percent) => Math.round(props.time * (100 - (percent || 0)) / 100) || 'timeout'}
+                format={(percent) => ((time) || 'timeout')}
                 percent={100 - Math.round(time * 100 / props.time)}
                 showInfo={true}
                 strokeWidth={8}
@@ -98,7 +99,7 @@ const Quiz = (props: { data: Question[], score: number, setScore: (value: React.
           <Col span={screens.xs ? 23 : 8}>
             {
               props.data[props.qNumber].answers.slice(2, 4).map((answer, id) => (
-                <Col span={24}
+                <Col span={24} style={{ marginBottom: 10 }}
                 >
                   {/* <Title style={{ borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }} level={answer.length > 20 ? 5 : 4}>{answer}</Title> */}
                   <Button disabled={props.is5050[id + 2]}  {...isLocked && { style: { backgroundColor: correct_answer === answer ? 'green' : answerSelected.includes(id + 2) ? 'red' : '' } }} onClick={() => select(answerSelected, setSelected, props.selectionRemaining, props.setRemaining, id + 2, isLocked)} type={answerSelected.includes(id + 2,) ? 'primary' : 'default'} block>{decode(answer)}</Button>
@@ -117,6 +118,7 @@ const Quiz = (props: { data: Question[], score: number, setScore: (value: React.
         </Row>
 
       </Col>
+      </Row>
     </>
   );
 };

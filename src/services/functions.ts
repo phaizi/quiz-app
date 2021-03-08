@@ -47,7 +47,7 @@ export const nextQuestion = (
     // set2Selection: (value:React.SetStateAction<boolean>)=>void,    
 ) => {
     if (qNumber + 1 === totalQuestions) {
-        setNumber(0);
+        // setNumber(0);
         setStage(Stage.end);
         //lifelines reset missing
     } else {
@@ -59,7 +59,32 @@ export const nextQuestion = (
     setTime(timeLimit);
     set5050([false, false, false, false]);
     // set2Selection(false);
+} // this function has functionality of nextquestion as well as finish button
+
+export const playAgain = (
+    setNumber: (value: React.SetStateAction<number>) => void,
+    setScore: (value: React.SetStateAction<number>) => void,
+    setLifeline: (value: React.SetStateAction<boolean[]>) => void,
+    stage: Stage,
+    setStage: (value: React.SetStateAction<Stage>) => void,
+) => {
+    setNumber(0);
+    setScore(0);
+    setLifeline([true,true,true]);
+    setStage(stage);
 }
+
+// export const settings = (
+//     setNumber: (value: React.SetStateAction<number>) => void,
+//     setScore: (value: React.SetStateAction<number>) => void,
+//     setLifeline: (value: React.SetStateAction<boolean[]>) => void,
+//     setStage: (value: React.SetStateAction<Stage>) => void,
+// ) => {
+//     setNumber(0);
+//     setScore(0);
+//     setLifeline([true,true,true]);
+//     setStage(Stage.start);
+// }
 
 export const select = (
     selected: number[], setSelected: (value: React.SetStateAction<number[]>) => void,

@@ -22,7 +22,8 @@ export default function Home(props: { setLoading: (value: React.SetStateAction<b
 
 
   return (
-
+    <Row justify='center' style={{ margin: 'auto', minHeight: '330px', width: '95%', maxWidth: '700px', padding: 20, borderStyle: 'solid', borderColor: 'orange', borderWidth: 1, }}
+    >
     <Col span={18} >
 
       <Row justify="space-between" style={{ margin: '10px 0px ' }}
@@ -84,7 +85,7 @@ export default function Home(props: { setLoading: (value: React.SetStateAction<b
       </Row> */}
 
     </Col>
-
+</Row>
 
   );
 }

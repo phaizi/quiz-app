@@ -17,7 +17,7 @@ const CustomSider = (props: { data: Question[], isLifeline: boolean[], setLifeli
       zeroWidthTriggerStyle={{ backgroundColor: 'orange', }}
       style={{
         // overflow: 'auto',
-        height: '100%',
+        // height: '100%',
         position: isBreakpoint ? 'fixed' : 'static',
         left: 0,
         zIndex: 15,
